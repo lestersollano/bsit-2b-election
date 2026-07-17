@@ -5,10 +5,12 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
+    CardContent,
 } from "./components/ui/card"
 import { timeUntil } from "./lib/utils"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
+import { Separator } from "./components/ui/separator"
 
 export function Primer() {
     const [timeLeft, setTimeLeft] = useState({ text: "", elapsed: false })
@@ -31,20 +33,20 @@ export function Primer() {
 
     return (
         <div className="box-border flex h-dvh justify-center p-6">
-            <Card className="w-full max-w-xl justify-between overflow-auto">
+            <Card className="w-full max-w-xl justify-between">
                 <CardHeader>
                     <CardTitle>BSIT 2B Class Elections</CardTitle>
                     <CardDescription>
                         Welcome to the official 2026 BSIT 2B Class Election
                         portal!
                     </CardDescription>
-                    <hr />
+                </CardHeader>
+                <Separator />
+                <CardContent className="flex-1 overflow-auto">
                     <CardDescription className="text-justify">
-                        <br />
                         This election will conduct a{" "}
                         <strong>Direct Democracy</strong>. This means all
-                        members of the particular democratic group are
-                        candidates.
+                        members of our class are candidates.
                         <br />
                         <br />
                         You can vote anyone in our section including yourself
@@ -82,7 +84,7 @@ export function Primer() {
                         <br />
                         <hr />
                         <br />
-                        In the event of a winner getting disqualified due to
+                        In the event of a winner gets disqualified due to
                         unforseen circumstances, a classroom based election will
                         be held in a future date.
                         <br />
@@ -91,7 +93,8 @@ export function Primer() {
                         themselves or a tiebreaker will be held in the Messenger
                         announcement group chat.
                     </CardDescription>
-                </CardHeader>
+                </CardContent>
+                <Separator />
                 <CardFooter className="flex flex-col gap-3">
                     <Button
                         variant={timeLeft.elapsed ? "default" : "secondary"}
