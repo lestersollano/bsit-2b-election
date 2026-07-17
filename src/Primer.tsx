@@ -15,7 +15,9 @@ export function Primer() {
     const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate("/validation")
+        if (timeLeft.elapsed) {
+            navigate("/validation")
+        }
     }
 
     useEffect(() => {
