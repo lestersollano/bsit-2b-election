@@ -6,11 +6,24 @@ import {
     CardHeader,
     CardTitle,
 } from "./components/ui/card"
+import { timeUntil } from "./lib/utils"
+import { useEffect, useState } from "react"
 
 export function Primer() {
     const handleClick = () => {
-        window.location.href = "fb-messenger://user/25838309992478988"
+        // TODO: add handle function
     }
+
+    const [timeLeft, setTimeLeft] = useState({ text: "", elapsed: false })
+
+    useEffect(() => {
+        const update = () => {
+            setTimeLeft(timeUntil(7, 20, 10, 0))
+        }
+        update()
+        const interval = setInterval(update, 1000)
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div className="box-border flex h-dvh justify-center p-6">
@@ -22,7 +35,7 @@ export function Primer() {
                         portal!
                     </CardDescription>
                     <hr />
-                    <CardDescription className="text-center">
+                    <CardDescription className="text-justify">
                         <br />
                         This election will conduct a{" "}
                         <strong>Direct Democracy</strong>. This means all
@@ -34,44 +47,54 @@ export function Primer() {
                         but only for one position each.
                         <br />
                         <br />
-                        You can vote anyone in our section including yourself
-                        but only for one position each.
+                        Your votes will be publicly accessible and can be viewed
+                        by anyone. This ensures transparency is observed and no
+                        vote is forged.
+                        <br />
+                        <br />
+                        The result of the election is non-negotioable. This
+                        means a winner cannot revoke their position.
                         <br />
                         <br />
                         Some members are <strong>disqualified</strong> from
                         candidacy due to reasons mentioned below:
                         <br />
                         <br />
-                        <strong>Lester Matthew Sollano</strong> - SSC officer
+                        <strong>Lester Matthew Sollano</strong> - SSC Vice
+                        President of Internal Affairs
+                        <br />
+                        <strong>Ivan Migs Bergania</strong> - Irregular Schedule
                         <br />
                         <br />
-                        <strong>Ivan Migs Bergania</strong> - irregular schedule
+                        The Official BSIT 2B 2026 Election will start in{" "}
+                        <strong>July 20, 2026</strong> at exactly{" "}
+                        <strong>10:00 AM</strong>.
                         <br />
                         <br />
-                        <strong>Shim Steven Manaloto</strong> - irregular
-                        schedule
-                        <br />
-                        <br />
-                        Your votes will be publicly accessible and can be viewed
-                        by anyone. This ensures transparency is observed and no
-                        vote is forged.
-                        <br />
-                        <br />
-                        Regardless if you vote or not, all existing votes on
+                        Regardless if you vote or not, all existing votes before
                         July 21, 2026 12:00 AM will be the basis for the winners
                         of each position.
+                        <br />
+                        <br />
+                        <hr />
+                        <br />
+                        In the event of a winner getting disqualified due to
+                        unforseen circumstances, a classroom based election will
+                        be held in a future date.
                     </CardDescription>
                 </CardHeader>
                 <CardFooter className="flex flex-col gap-3">
                     <Button
-                        variant={"secondary"}
+                        variant={timeLeft.elapsed ? "default" : "secondary"}
                         className="w-full"
                         onClick={handleClick}
                     >
                         PROCEED
                     </Button>
                     <CardDescription className="text-center">
-                        You can only proceed after July 20, 2026 12:00 AM
+                        {timeLeft.elapsed
+                            ? "By proceeding you agree to the terms mentioned above"
+                            : `You can proceed in ${timeLeft.text}`}
                     </CardDescription>
                 </CardFooter>
             </Card>

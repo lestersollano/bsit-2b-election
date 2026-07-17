@@ -9,7 +9,14 @@ import {
 
 export function App() {
     const handleClick = () => {
-        window.location.href = "fb-messenger://user/25838309992478988"
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+
+        if (isMobile) {
+            window.location.href = "fb-messenger://user/25838309992478988"
+        } else {
+            window.location.href =
+                "https://www.messenger.com/e2ee/t/25838309992478988"
+        }
     }
 
     return (
@@ -24,7 +31,7 @@ export function App() {
                 </CardHeader>
                 <CardFooter>
                     <Button className="w-full" onClick={handleClick}>
-                        Messenger
+                        Open Messenger
                     </Button>
                 </CardFooter>
             </Card>
