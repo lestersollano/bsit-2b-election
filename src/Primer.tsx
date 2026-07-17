@@ -71,9 +71,9 @@ export function Primer() {
                         <strong>10:00 AM</strong>.
                         <br />
                         <br />
-                        Regardless if you vote or not, all existing votes before
-                        July 21, 2026 12:00 AM will be the basis for the winners
-                        of each position.
+                        Regardless if you vote or not, only the existing votes
+                        before <strong>July 20, 2026 8:00 PM</strong> will be
+                        the basis for the winners of each position.
                         <br />
                         <br />
                         <hr />
@@ -81,6 +81,11 @@ export function Primer() {
                         In the event of a winner getting disqualified due to
                         unforseen circumstances, a classroom based election will
                         be held in a future date.
+                        <br />
+                        <br />
+                        In the event of a tie, both candidates can settle it
+                        themselves or a tiebreaker will be held in the Messenger
+                        announcement group chat.
                     </CardDescription>
                 </CardHeader>
                 <CardFooter className="flex flex-col gap-3">

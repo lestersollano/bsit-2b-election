@@ -4,6 +4,7 @@ import "./index.css"
 import App from "./App.tsx"
 import NotFound from "./NotFound.tsx"
 import Primer from "./Primer.tsx"
+import Voter from "./Voter.tsx"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
 import { BrowserRouter, Route, Routes } from "react-router"
 
@@ -12,8 +13,9 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />} />
-                <Route path="/voter/:id" element={<App />} />
-                <Route path="/primer/:id" element={<Primer />} />
+                <Route path="/voter/:id" element={<Voter />} />
+                <Route path="/voter/:id/:position" element={<App />} />
+                <Route path="/primer" element={<Primer />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
