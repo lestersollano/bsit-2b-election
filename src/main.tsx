@@ -1,14 +1,21 @@
-import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
 import "./index.css"
 import App from "./App.tsx"
+import NotFound from "./NotFound.tsx"
+import Primer from "./Primer.tsx"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
+import { BrowserRouter, Route, Routes } from "react-router"
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
     <ThemeProvider>
-      <App />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<App />} />
+                <Route path="/voter/:id" element={<App />} />
+                <Route path="/primer/:id" element={<Primer />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
     </ThemeProvider>
-  </StrictMode>
 )

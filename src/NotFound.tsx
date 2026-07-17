@@ -6,25 +6,27 @@ import {
     CardHeader,
     CardTitle,
 } from "./components/ui/card"
+import { useNavigate } from "react-router"
 
-export function App() {
+export function NotFound() {
+    const navigate = useNavigate()
     const handleClick = () => {
-        window.location.href = "fb-messenger://user/25838309992478988"
+        navigate("/")
     }
 
     return (
         <div className="box-border flex h-dvh items-center justify-center">
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                    <CardTitle>BSIT 2B Class Elections</CardTitle>
+                    <CardTitle>404 not found</CardTitle>
                     <CardDescription>
-                        Check your Messenger inbox for a private message from
-                        Lester Matthew Sollano for your voting link
+                        Either you used a wrong link or you edited it
                     </CardDescription>
                 </CardHeader>
+
                 <CardFooter>
                     <Button className="w-full" onClick={handleClick}>
-                        Messenger
+                        Go back
                     </Button>
                 </CardFooter>
             </Card>
@@ -32,4 +34,4 @@ export function App() {
     )
 }
 
-export default App
+export default NotFound
