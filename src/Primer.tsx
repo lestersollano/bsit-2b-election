@@ -8,13 +8,15 @@ import {
 } from "./components/ui/card"
 import { timeUntil } from "./lib/utils"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 
 export function Primer() {
-    const handleClick = () => {
-        // TODO: add handle function
-    }
-
     const [timeLeft, setTimeLeft] = useState({ text: "", elapsed: false })
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        navigate("/validation")
+    }
 
     useEffect(() => {
         const update = () => {

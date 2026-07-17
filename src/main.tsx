@@ -16,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/voter/:id" element={<Voter />} />
                 <Route path="/voter/:id/:position" element={<App />} />
                 <Route path="/primer" element={<Primer />} />
+                <Route path="/validation" element={<App />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </HashRouter>
