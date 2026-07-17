@@ -6,11 +6,11 @@ import NotFound from "./NotFound.tsx"
 import Primer from "./Primer.tsx"
 import Voter from "./Voter.tsx"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
-import { BrowserRouter, Route, Routes } from "react-router"
+import { HashRouter, Route, Routes } from "react-router"
 
 createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/voter/:id" element={<Voter />} />
@@ -18,6 +18,6 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/primer" element={<Primer />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     </ThemeProvider>
 )
