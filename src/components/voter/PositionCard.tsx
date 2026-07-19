@@ -13,11 +13,15 @@ function PositionCard({ name, position }: { name: string; position: string }) {
     const { id } = useParams()
     const navigate = useNavigate()
     const handlePosition = (position: string) => {
-        navigate(`/voter/${id}/${position}`)
+        navigate(`/voter/${id}/${encodeURIComponent(position)}`)
     }
 
     return (
-        <Item variant={"outline"} onClick={() => handlePosition("president")}>
+        <Item
+            variant={"outline"}
+            onClick={() => handlePosition(position)}
+            className="cursor-pointer transition-transform hover:scale-105 active:scale-[102%]"
+        >
             <ItemContent>
                 <ItemTitle className="text-lg">{name}</ItemTitle>
                 <ItemDescription>{position}</ItemDescription>

@@ -1,8 +1,29 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { API_BASE, RESULTS_REVEAL, type User } from "./types"
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
+}
+
+export function allVotersDone(users: User[]) {
+    return users.length > 0 && users.every((user) => user.done_voting)
+}
+
+export function isResultsRevealTime() {
+    return timeUntil(
+        RESULTS_REVEAL.month,
+        RESULTS_REVEAL.day,
+        RESULTS_REVEAL.hour,
+        RESULTS_REVEAL.minute
+    ).elapsed
+}
+
+export async function areResultsReady() {
+    if (isResultsRevealTime()) return true
+    const res = await fetch(`${API_BASE}/users`)
+    const users: User[] = await res.json()
+    return allVotersDone(users)
 }
 
 export function timeUntil(
