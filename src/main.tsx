@@ -1,8 +1,6 @@
 import { createRoot } from "react-dom/client"
 
 import "./index.css"
-import App from "./App.tsx"
-import NotFound from "./NotFound.tsx"
 import Primer from "./Primer.tsx"
 import Voter from "./Voter.tsx"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
@@ -17,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
         <HashRouter>
             <Routes>
-                <Route path="/" element={<App />} />
+                <Route path="/" element={<Primer />} />
                 <Route path="/voter/:id" element={<RequireUser />}>
                     <Route index element={<Voter />} />
                     <Route path=":position" element={<Choose />} />
@@ -26,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
                 <Route path="/validation" element={<Validate />} />
                 <Route path="/awaiting-results" element={<AwaitingResults />} />
                 <Route path="/results" element={<Results />} />
-                <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<Primer />} />
             </Routes>
         </HashRouter>
     </ThemeProvider>
