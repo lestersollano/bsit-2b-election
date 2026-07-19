@@ -67,16 +67,16 @@ export function Choose() {
                 </CardHeader>
                 <Separator />
                 <CardContent className="flex flex-1 flex-col gap-3 overflow-auto">
-                    {users.map(
-                        (user) =>
-                            user.is_eligible && (
-                                <NameCard
-                                    key={user.id}
-                                    name={user.name}
-                                    candidateId={user.id}
-                                />
-                            )
-                    )}
+                    {[...users]
+                        .filter((user) => user.is_eligible)
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map((user) => (
+                            <NameCard
+                                key={user.id}
+                                name={user.name}
+                                candidateId={user.id}
+                            />
+                        ))}
                 </CardContent>
                 <Separator />
                 <CardFooter className="flex flex-col gap-3">
