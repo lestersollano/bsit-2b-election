@@ -10,6 +10,7 @@ import {
     CardContent,
 } from "./components/ui/card"
 import { API_BASE, type User } from "./lib/types"
+import { isVotingClosed } from "./lib/utils"
 
 export function Validate() {
     const [uuid, setUuid] = useState("")
@@ -19,6 +20,11 @@ export function Validate() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        if (isVotingClosed()) {
+            navigate("/results", { replace: true })
+            return
+        }
+
         const id = uuid.trim()
         if (!id) {
             setError("Enter your UUID to continue")
@@ -33,6 +39,10 @@ export function Validate() {
             const exists = users.some((user) => user.id === id)
             if (!exists) {
                 setError("That UUID was not found")
+                return
+            }
+            if (isVotingClosed()) {
+                navigate("/results", { replace: true })
                 return
             }
             navigate(`/voter/${id}`)

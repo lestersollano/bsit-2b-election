@@ -7,7 +7,7 @@ import {
     CardTitle,
     CardContent,
 } from "./components/ui/card"
-import { timeUntil } from "./lib/utils"
+import { isVotingClosed, timeUntil } from "./lib/utils"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Separator } from "./components/ui/separator"
@@ -17,6 +17,10 @@ export function Primer() {
     const navigate = useNavigate()
 
     const handleClick = () => {
+        if (isVotingClosed()) {
+            navigate("/results")
+            return
+        }
         if (timeLeft.elapsed) {
             navigate("/validation")
         }
@@ -24,7 +28,7 @@ export function Primer() {
 
     useEffect(() => {
         const update = () => {
-            setTimeLeft(timeUntil(7, 20, 10, 0))
+            setTimeLeft(timeUntil(7, 20, 10, 0, 2026))
         }
         update()
         const interval = setInterval(update, 1000)

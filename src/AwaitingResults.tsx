@@ -31,7 +31,8 @@ export function AwaitingResults() {
                 RESULTS_REVEAL.month,
                 RESULTS_REVEAL.day,
                 RESULTS_REVEAL.hour,
-                RESULTS_REVEAL.minute
+                RESULTS_REVEAL.minute,
+                RESULTS_REVEAL.year
             )
             if (!cancelled) setTimeLeft(countdown)
 

@@ -12,6 +12,7 @@ import {
 import { Separator } from "./components/ui/separator"
 import PositionCard from "./components/voter/PositionCard"
 import { API_BASE, POSITIONS, type User, type Vote } from "./lib/types"
+import { isVotingClosed } from "./lib/utils"
 
 export function Voter() {
     const { id } = useParams()
@@ -25,10 +26,20 @@ export function Voter() {
     useEffect(() => {
         if (!id) return
 
+        if (isVotingClosed()) {
+            navigate("/results", { replace: true })
+            return
+        }
+
         Promise.all([
             fetch(`${API_BASE}/votes/voter/${id}`).then((res) => res.json()),
             fetch(`${API_BASE}/users`).then((res) => res.json()),
         ]).then(([votes, users]: [Vote[], User[]]) => {
+            if (isVotingClosed()) {
+                navigate("/results", { replace: true })
+                return
+            }
+
             const voter = users.find((user) => user.id === id)
             if (voter) {
                 setVoterName(voter.name)
@@ -51,6 +62,10 @@ export function Voter() {
 
     const handleSubmit = async () => {
         if (!id || !complete || submitting) return
+        if (isVotingClosed()) {
+            navigate("/results", { replace: true })
+            return
+        }
 
         setSubmitting(true)
         try {

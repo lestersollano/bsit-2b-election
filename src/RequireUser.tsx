@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Outlet, useNavigate, useParams } from "react-router"
 import { API_BASE, type User } from "./lib/types"
+import { isVotingClosed } from "./lib/utils"
 
 export function RequireUser() {
     const { id } = useParams()
@@ -13,12 +14,21 @@ export function RequireUser() {
             return
         }
 
+        if (isVotingClosed()) {
+            navigate("/results", { replace: true })
+            return
+        }
+
         let cancelled = false
 
         fetch(`${API_BASE}/users`)
             .then((res) => res.json())
             .then((users: User[]) => {
                 if (cancelled) return
+                if (isVotingClosed()) {
+                    navigate("/results", { replace: true })
+                    return
+                }
                 const exists = users.some((user) => user.id === id)
                 if (!exists) {
                     navigate("/primer", { replace: true })

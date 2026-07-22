@@ -28,10 +28,11 @@ export type Position = (typeof POSITIONS)[number]
 
 export const API_BASE = "https://bsit-2b-election-backend.onrender.com"
 
-/** Results unlock at this local date/time, or earlier if every voter is done. */
+/** Results unlock / voting closes at this Asia/Manila date-time (or earlier if every voter is done). */
 export const RESULTS_REVEAL = {
+    year: 2026,
     month: 7,
-    day: 20,
-    hour: 20,
+    day: 23,
+    hour: 17,
     minute: 0,
 } as const

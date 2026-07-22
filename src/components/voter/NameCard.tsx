@@ -9,6 +9,7 @@ import {
 } from "../ui/item"
 import { ChevronRight, Loader2 } from "lucide-react"
 import { API_BASE, type Vote } from "@/lib/types"
+import { isVotingClosed } from "@/lib/utils"
 
 function NameCard({
     name,
@@ -23,6 +24,10 @@ function NameCard({
 
     const handleVote = async () => {
         if (!id || !position || submitting) return
+        if (isVotingClosed()) {
+            navigate("/results", { replace: true })
+            return
+        }
 
         setSubmitting(true)
         try {

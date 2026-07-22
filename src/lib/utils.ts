@@ -2,6 +2,9 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { API_BASE, RESULTS_REVEAL, type User } from "./types"
 
+/** Philippines observes UTC+8 year-round (no DST). */
+const MANILA_OFFSET_MS = 8 * 60 * 60 * 1000
+
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
@@ -10,13 +13,32 @@ export function allVotersDone(users: User[]) {
     return users.length > 0 && users.every((user) => user.done_voting)
 }
 
+/** Instant for a wall-clock time in Asia/Manila. */
+export function manilaDate(
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    minute: number
+) {
+    return new Date(
+        Date.UTC(year, month - 1, day, hour, minute, 0) - MANILA_OFFSET_MS
+    )
+}
+
 export function isResultsRevealTime() {
     return timeUntil(
         RESULTS_REVEAL.month,
         RESULTS_REVEAL.day,
         RESULTS_REVEAL.hour,
-        RESULTS_REVEAL.minute
+        RESULTS_REVEAL.minute,
+        RESULTS_REVEAL.year
     ).elapsed
+}
+
+/** Frontend voting cutoff — same instant as results reveal (Jul 20, 2026 8:00 PM PH). */
+export function isVotingClosed() {
+    return isResultsRevealTime()
 }
 
 export async function areResultsReady() {
@@ -30,22 +52,20 @@ export function timeUntil(
     month: number,
     day: number,
     militaryTimeHour: number,
-    militaryTimeMinute: number
+    militaryTimeMinute: number,
+    year?: number
 ): { text: string; elapsed: boolean } {
     const now = new Date()
-
-    // Month is 0-based in JavaScript
-    const target = new Date(
-        now.getFullYear(),
-        month - 1,
+    const targetYear = year ?? now.getFullYear()
+    const target = manilaDate(
+        targetYear,
+        month,
         day,
         militaryTimeHour,
-        militaryTimeMinute,
-        0
+        militaryTimeMinute
     )
 
-    // If the date has already passed this year, assume next year
-    if (target.getTime() < now.getTime()) {
+    if (target.getTime() <= now.getTime()) {
         return { text: "this moment.", elapsed: true }
     }
 
